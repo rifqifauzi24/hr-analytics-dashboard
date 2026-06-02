@@ -1,0 +1,317 @@
+table _Measures
+	lineageTag: 2469b1da-ac2a-4c95-b163-448a0e2eaf36
+
+	measure 'Total Employees Ever' = DISTINCTCOUNT ( Employees[EmployeeID] )
+		formatString: 0
+		lineageTag: ece315ab-ab84-4e79-9be8-1ad83cf025b2
+
+	measure 'Active Headcount' =
+			
+			CALCULATE ( [Total Employees Ever], Employees[EmploymentStatus] = "Active" )
+		formatString: 0
+		lineageTag: d85aff2f-cdc6-4c78-ab14-a09a2cac623f
+
+		changedProperty = IsHidden
+
+	measure Separations = CALCULATE ( [Total Employees Ever], Employees[EmploymentStatus] <> "Active" )
+		formatString: 0
+		lineageTag: c73cba63-a90b-40cc-b8c0-aaf43eda230e
+
+	measure 'Voluntary Separations' =
+			
+			CALCULATE ( [Total Employees Ever], Employees[TerminationType] = "Voluntary" )
+		formatString: 0
+		lineageTag: 7079b41c-9d8b-4107-b4f9-a6d97fc933d0
+
+	measure 'Involuntary Separations' =
+			
+			CALCULATE ( [Total Employees Ever], Employees[TerminationType] = "Involuntary" )
+		formatString: 0
+		lineageTag: 60073428-6646-4811-bfc3-e5fd5b22918a
+
+	measure 'Avg Age' = AVERAGE ( Employees[Age] )
+		lineageTag: c74545ee-3bb5-45fc-9a1b-c69735f901a4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Tenure (Years)' =
+			
+			CALCULATE ( AVERAGE ( Employees[TenureYears] ), Employees[EmploymentStatus] = "Active" )
+		lineageTag: 6dfe3f8e-a0d1-4a78-ab17-7fbbe19a9b4d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Female %' =
+			
+			DIVIDE (
+			    CALCULATE ( [Active Headcount], Employees[Gender] = "Female" ),
+			    [Active Headcount]
+			)
+		lineageTag: 205df50f-348e-491e-a31a-0cda43a0bef0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Headcount (as of)' =
+			
+			VAR d = MAX ( DateTable[Date] )
+			RETURN
+			CALCULATE (
+			    [Total Employees Ever],
+			    FILTER (
+			        ALL ( Employees ),
+			        Employees[HireDate] <= d
+			            && ( ISBLANK ( Employees[TerminationDate] ) || Employees[TerminationDate] > d )
+			    )
+			)
+		formatString: 0
+		lineageTag: 75b8f9fd-fd2d-4982-bb72-aef7bf5a9129
+
+	measure 'New Hires' =
+			
+			VAR mn = MIN ( DateTable[Date] )
+			VAR mx = MAX ( DateTable[Date] )
+			RETURN
+			CALCULATE (
+			    [Total Employees Ever],
+			    FILTER ( ALL ( Employees ), Employees[HireDate] >= mn && Employees[HireDate] <= mx )
+			)
+		formatString: 0
+		lineageTag: 3726e65e-83f2-4cb2-bacb-7b2675f7dffa
+
+	measure 'Terminations (period)' =
+			
+			VAR mn = MIN ( DateTable[Date] )
+			VAR mx = MAX ( DateTable[Date] )
+			RETURN
+			CALCULATE (
+			    [Total Employees Ever],
+			    FILTER ( ALL ( Employees ),
+			        NOT ISBLANK ( Employees[TerminationDate] )
+			            && Employees[TerminationDate] >= mn && Employees[TerminationDate] <= mx )
+			)
+		formatString: 0
+		lineageTag: a2777a77-a49c-48bd-bcc1-3cd004ab93a1
+
+	measure 'Avg Headcount (period)' =
+			
+			AVERAGEX ( VALUES ( DateTable[YearMonth] ), [Headcount (as of)] )
+		lineageTag: c50827d4-7094-4916-86a5-dbebf5d30476
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Attrition Rate' =
+			
+			DIVIDE ( [Terminations (period)], [Avg Headcount (period)] )
+		lineageTag: c66bc144-daa1-429d-b948-42404fc09714
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Annual Payroll' =
+			
+			CALCULATE ( SUM ( Compensation[TotalAnnualCompensation] ),
+			    Employees[EmploymentStatus] = "Active" )
+		formatString: 0
+		lineageTag: 80f3daca-cd41-4cb0-9cc0-9f4f6e5259c5
+
+	measure 'Avg Base Salary' =
+			
+			CALCULATE ( AVERAGE ( Compensation[BaseSalaryMonthly] ),
+			    Employees[EmploymentStatus] = "Active" )
+		lineageTag: 8cb30f44-f21c-4061-904b-2bfa62906fdd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Compa-Ratio' = AVERAGE ( Compensation[CompaRatio] )
+		lineageTag: 6e2f5373-6a98-4dce-a6f0-3255a5a94d5d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Bonus Paid' = SUM ( Compensation[AnnualBonus] )
+		formatString: 0
+		lineageTag: 83293f41-a5d3-4038-94d3-52cfd5eeaf26
+
+	measure 'Avg Performance Score' = AVERAGE ( Performance[PerformanceScore] )
+		lineageTag: 8c7bf6c0-4fa9-4145-b79e-ac2a51ae1f17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'High Performers %' =
+			
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( Performance ), Performance[PerformanceScore] >= 4 ),
+			    COUNTROWS ( Performance )
+			)
+		lineageTag: 611668af-37a3-4dcc-b2ee-38e21688cb9f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promotion Recommendations' =
+			
+			CALCULATE ( COUNTROWS ( Performance ), Performance[PromotionRecommended] = "Yes" )
+		formatString: 0
+		lineageTag: 419a4191-f2cd-43a9-81c8-9577d2964be7
+
+	measure 'Avg Goal Achievement' = AVERAGE ( Performance[GoalAchievementPercent] )
+		lineageTag: 43653d3a-db76-48d5-b2ec-c25492b61bb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Applications' = DISTINCTCOUNT ( Recruitment[ApplicationID] )
+		formatString: 0
+		lineageTag: bd8c0d6b-9c11-44ec-9926-166db507bf65
+
+	measure 'Total Hires' = CALCULATE ( [Total Applications], Recruitment[FurthestStage] = "Hired" )
+		formatString: 0
+		lineageTag: 9e285e48-e6b6-4314-9dad-cf0a0d796c8e
+
+	measure 'Avg Time to Hire' = AVERAGE ( Recruitment[TimeToHireDays] )
+		lineageTag: 1d07e77a-c618-41c6-8ae2-3340f31825f0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Cost per Hire' = AVERAGE ( Recruitment[CostPerHire] )
+		lineageTag: 28e4fa6b-4c58-47cb-a5ea-f49f0ab7c3e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Offer Acceptance Rate' =
+			
+			DIVIDE (
+			    CALCULATE ( [Total Applications], Recruitment[FurthestStage] = "Hired" ),
+			    CALCULATE ( [Total Applications], Recruitment[FurthestStage] IN { "Offered", "Hired" } )
+			)
+		lineageTag: a7771ada-f60b-4504-a9dd-92874e115415
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Applied = CALCULATE ( [Total Applications] )
+		formatString: 0
+		lineageTag: 4101e583-ac12-48b4-9764-31fd48df7cd1
+
+	measure Screened = CALCULATE ( [Total Applications], Recruitment[FurthestStage] IN {"Screened","Interviewed","Offered","Hired"} )
+		formatString: 0
+		lineageTag: c4416bfa-d954-4178-87b4-c03f13dcead9
+
+	measure Interviewed = CALCULATE ( [Total Applications], Recruitment[FurthestStage] IN {"Interviewed","Offered","Hired"} )
+		formatString: 0
+		lineageTag: 1c6f6ec4-6ca8-4c64-96e1-48cd4565ce7a
+
+	measure Offered = CALCULATE ( [Total Applications], Recruitment[FurthestStage] IN {"Offered","Hired"} )
+		formatString: 0
+		lineageTag: c40c5cab-9b24-418c-9d83-8a936daec252
+
+	measure Hired = CALCULATE ( [Total Applications], Recruitment[FurthestStage] = "Hired" )
+		formatString: 0
+		lineageTag: d47a14d6-bed4-438e-9f97-4c761762fe17
+
+	measure 'Total Training Hours' = SUM ( Training[DurationHours] )
+		formatString: 0
+		lineageTag: 1b1f1123-79a1-4cfc-b5fe-626431576c03
+
+	measure 'Total Training Cost' = SUM ( Training[CostPerParticipant] )
+		formatString: 0
+		lineageTag: a6ed661d-fe33-4f34-bc12-13c0dddc11e6
+
+	measure 'Training Completion Rate' =
+			
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( Training ), Training[CompletionStatus] = "Completed" ),
+			    COUNTROWS ( Training )
+			)
+		lineageTag: a924c738-09aa-4716-ab62-49bebf2f257b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Training Hours per Employee' =
+			
+			DIVIDE ( [Total Training Hours], [Active Headcount] )
+		lineageTag: 164c552e-1a55-4c65-ba64-6c9680cb0170
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Employees Trained' = DISTINCTCOUNT ( Training[EmployeeID] )
+		formatString: 0
+		lineageTag: 0dc3f58d-b16c-4a8a-b99c-27e8fd906cd3
+
+	measure 'Avg Attendance Rate' = AVERAGE ( Attendance[AttendanceRatePct] )
+		lineageTag: 94870fc4-1d57-4485-b3f0-04bf2ccef19b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Absenteeism Rate' =
+			
+			DIVIDE ( SUM ( Attendance[DaysAbsent] ), SUM ( Attendance[WorkingDays] ) )
+		lineageTag: 5ca071f3-7ce5-4387-bdad-d7213625bc35
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Engagement Score' = AVERAGE ( EngagementSurvey[EngagementScore] )
+		lineageTag: 8647a162-ce8c-410e-99a8-b2f8049998d9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure eNPS = AVERAGE ( EngagementSurvey[RecommendCompany_eNPS] )
+		lineageTag: 67787cda-89ee-450d-a8aa-33a9a1b4b448
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Work-Life Balance' = AVERAGE ( EngagementSurvey[WorkLifeBalanceScore] )
+		lineageTag: cb75b2ef-9b31-48d5-acd8-dbde74b129b8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Headcount Ever' = DISTINCTCOUNT ( Employees[EmployeeID] )
+		formatString: 0
+		lineageTag: 24b46398-64dc-4930-9bcd-06c9146ebda5
+
+	measure 'Separation Count' =
+			
+			CALCULATE ( DISTINCTCOUNT ( Employees[EmployeeID] ), Employees[EmploymentStatus] <> "Active" )
+		formatString: 0
+		lineageTag: bb1b2dc7-ed18-4053-af3f-9acb0fe738e7
+
+	measure 'Attrition % (cohort)' =
+			
+			DIVIDE ( [Separation Count], [Headcount Ever] )
+		lineageTag: 84d83500-db55-4e15-8399-3dcabe8cca3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'eNPS 2025' = CALCULATE ( [eNPS], EngagementSurvey[SurveyYear] = "2025" )
+		formatString: 0
+		lineageTag: 12aed3b5-fecc-443e-87eb-2112dafabba2
+
+	measure 'Talent Count' = DISTINCTCOUNT ( Performance[EmployeeID] )
+		formatString: 0
+		lineageTag: f2a390bd-7d0b-4556-a444-a23b58325ae5
+
+	measure 'Total Base Annual' =
+			
+			CALCULATE ( SUM ( Compensation[AnnualBaseSalary] ), Employees[EmploymentStatus] = "Active" )
+		formatString: 0
+		lineageTag: 6cdab6a5-9363-4791-bc75-dc1ba8a6169b
+
+	measure 'Total Allowance Annual' =
+			
+			CALCULATE ( SUM ( Compensation[TotalAllowanceMonthly] ) * 12, Employees[EmploymentStatus] = "Active" )
+		formatString: 0
+		lineageTag: 51551f90-51c5-4037-b85b-b7c7905d84b2
+
+	measure 'Total Bonus Annual' =
+			
+			CALCULATE ( SUM ( Compensation[AnnualBonus] ), Employees[EmploymentStatus] = "Active" )
+		formatString: 0
+		lineageTag: 87c6b401-7aa1-43d7-af40-e4634bb1888b
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

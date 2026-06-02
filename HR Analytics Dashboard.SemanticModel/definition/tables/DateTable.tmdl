@@ -1,0 +1,80 @@
+table DateTable
+	lineageTag: ddd3d8c1-2673-4234-9e15-b1e04a9e7fa9
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: ddc6f60d-16cc-4859-ad70-dfad32595421
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 2eb67f0b-ef25-44b3-8193-6e849a326351
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 87750d01-b72c-4335-b379-333579bc00fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		formatString: 0
+		lineageTag: 786d1b50-f990-402c-ba0b-483dd8f61eb7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: c546595b-3ff9-454e-8ec1-44ce7ef5fff5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		lineageTag: e9d4c84d-3b1a-43d9-9552-1c7119703683
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthYear
+		lineageTag: fb0ea605-dc2f-498b-9abd-4337a852207e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthYear]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateTable = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 2018, 1, 1 ), DATE ( 2026, 12, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Quarter", "Q" & FORMAT ( [Date], "Q" ),
+				    "MonthNo", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "MMM" ),
+				    "YearMonth", FORMAT ( [Date], "YYYY-MM" ),
+				    "MonthYear", FORMAT ( [Date], "MMM YYYY" )
+				)
+
+	annotation PBI_Id = 91dc062fd78447d1a886e3f51b3940ed
+

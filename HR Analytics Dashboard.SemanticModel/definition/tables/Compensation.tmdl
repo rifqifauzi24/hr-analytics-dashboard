@@ -1,0 +1,204 @@
+table Compensation
+	lineageTag: 55924588-e956-4319-bd36-7a271f3e4615
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 31efbad0-053e-4deb-a39f-4921685cd605
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 08bc530b-7fd2-482a-a760-669054524631
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: 0caf15e3-5f19-4082-b55d-92f7571a61b1
+		summarizeBy: sum
+		sourceColumn: JobLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobGrade
+		dataType: string
+		lineageTag: 88fb327d-653a-417d-8390-ba30237758c7
+		summarizeBy: none
+		sourceColumn: JobGrade
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseSalaryMonthly
+		dataType: int64
+		formatString: 0
+		lineageTag: 96666dce-4537-4c8f-90af-502fb13da1da
+		summarizeBy: sum
+		sourceColumn: BaseSalaryMonthly
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalaryBandMidpoint
+		dataType: int64
+		formatString: 0
+		lineageTag: caaf5326-eed6-4fdf-9d02-4048e9282099
+		summarizeBy: sum
+		sourceColumn: SalaryBandMidpoint
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompaRatio
+		dataType: double
+		lineageTag: d89cd1b0-eb87-42d2-9fe8-1e05aa85aeef
+		summarizeBy: sum
+		sourceColumn: CompaRatio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransportAllowance
+		dataType: int64
+		formatString: 0
+		lineageTag: 1af77f15-aa57-4879-b25a-198e5b28f5d5
+		summarizeBy: sum
+		sourceColumn: TransportAllowance
+
+		annotation SummarizationSetBy = Automatic
+
+	column MealAllowance
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a8f9828-a62b-42d5-952a-569a9e4e3760
+		summarizeBy: sum
+		sourceColumn: MealAllowance
+
+		annotation SummarizationSetBy = Automatic
+
+	column PositionAllowance
+		dataType: int64
+		formatString: 0
+		lineageTag: 6842431f-c14c-415f-adf7-33ce97647da0
+		summarizeBy: sum
+		sourceColumn: PositionAllowance
+
+		annotation SummarizationSetBy = Automatic
+
+	column HousingAllowance
+		dataType: int64
+		formatString: 0
+		lineageTag: ebac4ca7-407c-4152-b9b1-80ebcf40cd17
+		summarizeBy: sum
+		sourceColumn: HousingAllowance
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalAllowanceMonthly
+		dataType: int64
+		formatString: 0
+		lineageTag: 0717acec-6526-48a1-b29b-72197b4ab650
+		summarizeBy: sum
+		sourceColumn: TotalAllowanceMonthly
+
+		annotation SummarizationSetBy = Automatic
+
+	column OvertimePayMonthly
+		dataType: int64
+		formatString: 0
+		lineageTag: 36427d26-7410-4b40-a6cd-24d864f08e6e
+		summarizeBy: sum
+		sourceColumn: OvertimePayMonthly
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnnualBonus
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e3ff369-de14-42b3-b8ce-74017e965e62
+		summarizeBy: sum
+		sourceColumn: AnnualBonus
+
+		annotation SummarizationSetBy = Automatic
+
+	column BonusMonths
+		dataType: double
+		lineageTag: 6dbdcc50-0588-4c17-8c69-8915f09826fa
+		summarizeBy: sum
+		sourceColumn: BonusMonths
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AnnualBaseSalary
+		dataType: int64
+		formatString: 0
+		lineageTag: 77ff48a6-863f-42c9-84b4-6a0afab5b2a0
+		summarizeBy: sum
+		sourceColumn: AnnualBaseSalary
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalAnnualCompensation
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c435540-b371-498f-b5b5-63ab5930f483
+		summarizeBy: sum
+		sourceColumn: TotalAnnualCompensation
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastSalaryReviewDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e82fe70f-7b37-4bd0-9a25-487268b9b28f
+		summarizeBy: none
+		sourceColumn: LastSalaryReviewDate
+
+		variation Variation
+			isDefault
+			relationship: 23b65b71-ed5c-4651-a95f-4d4c785b83f5
+			defaultHierarchy: LocalDateTable_fa5afbc0-2393-4e12-8491-425a74ed2782.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastIncreasePercent
+		dataType: double
+		lineageTag: 2b3ad060-3d13-4d3e-b95b-f6d586162876
+		summarizeBy: sum
+		sourceColumn: LastIncreasePercent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Currency
+		dataType: string
+		lineageTag: cb95ec04-ad63-4f6a-a68a-30f13d47c09c
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Compensation = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    Compensation_Sheet = Source{[Item="Compensation",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Compensation_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EmployeeID", type text}, {"Department", type text}, {"JobLevel", Int64.Type}, {"JobGrade", type text}, {"BaseSalaryMonthly", Int64.Type}, {"SalaryBandMidpoint", Int64.Type}, {"CompaRatio", type number}, {"TransportAllowance", Int64.Type}, {"MealAllowance", Int64.Type}, {"PositionAllowance", Int64.Type}, {"HousingAllowance", Int64.Type}, {"TotalAllowanceMonthly", Int64.Type}, {"OvertimePayMonthly", Int64.Type}, {"AnnualBonus", Int64.Type}, {"BonusMonths", type number}, {"AnnualBaseSalary", Int64.Type}, {"TotalAnnualCompensation", Int64.Type}, {"LastSalaryReviewDate", type date}, {"LastIncreasePercent", type number}, {"Currency", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

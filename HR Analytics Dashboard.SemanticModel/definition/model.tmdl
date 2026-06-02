@@ -1,0 +1,37 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-ID
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Attendance","Compensation","Employees","EngagementSurvey","Performance","Training","Recruitment","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Attendance
+ref table Compensation
+ref table Employees
+ref table EngagementSurvey
+ref table Performance
+ref table Training
+ref table Recruitment
+ref table DateTableTemplate_a5cef834-7b05-4e2a-b18a-6eadfe615f22
+ref table LocalDateTable_cf5f63c3-b6c6-4a27-b1f7-faa367b05cd5
+ref table LocalDateTable_fa5afbc0-2393-4e12-8491-425a74ed2782
+ref table LocalDateTable_f16bc380-eb05-42bb-8899-bf6fd780c81a
+ref table LocalDateTable_3fa6f8ed-3fe5-4573-864e-e98705679c20
+ref table LocalDateTable_9137b538-494c-47d8-a8cb-441c7ba787f1
+ref table LocalDateTable_04267fed-817f-4c0a-a996-a74998a85f6c
+ref table LocalDateTable_14fc396a-bb92-4a31-ae38-6c6928bc97d8
+ref table LocalDateTable_2beeb7df-87c8-44be-9caa-1c10ef7341af
+ref table LocalDateTable_72605ac8-79b3-4fbf-a1a8-8c9579dce3b3
+ref table LocalDateTable_36757381-2b91-486d-8aed-58989d63f748
+ref table DateTable
+ref table _Measures
+
+ref cultureInfo en-US
+

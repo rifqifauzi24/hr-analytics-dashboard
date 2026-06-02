@@ -1,0 +1,138 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 344.44444444444446,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 336,
+            "y": 686
+          },
+          "nodeIndex": "Attendance",
+          "nodeLineageTag": "f091b8be-8bfc-4ecc-bb31-b28c5624578d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 9,
+            "y": 475
+          },
+          "nodeIndex": "Compensation",
+          "nodeLineageTag": "55924588-e956-4319-bd36-7a271f3e4615",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 338,
+            "y": 333
+          },
+          "nodeIndex": "Employees",
+          "nodeLineageTag": "fed9e31b-5f6d-476a-b96b-ae54be3a0ea3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 674,
+            "y": 498
+          },
+          "nodeIndex": "EngagementSurvey",
+          "nodeLineageTag": "158881d5-3e7b-4e79-b7fc-4e93bed9a58b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 344,
+            "y": 0
+          },
+          "nodeIndex": "Performance",
+          "nodeLineageTag": "7515e69c-1484-4381-b581-969cbe6f9287",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 681,
+            "y": 139
+          },
+          "nodeIndex": "Recruitment",
+          "nodeLineageTag": "753f845a-42b8-4a7d-9115-966fafe39cf9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 8,
+            "y": 124
+          },
+          "nodeIndex": "Training",
+          "nodeLineageTag": "0cdbc7ea-9ef0-43e8-bda7-2546937959a9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 957,
+            "y": 393
+          },
+          "nodeIndex": "DateTable",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1233,
+            "y": 0
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "2469b1da-ac2a-4c95-b163-448a0e2eaf36",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 90,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

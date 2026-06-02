@@ -1,0 +1,193 @@
+table Recruitment
+	lineageTag: 753f845a-42b8-4a7d-9115-966fafe39cf9
+
+	column ApplicationID
+		dataType: string
+		lineageTag: 4439af8f-a896-44e8-9edd-48c7c10d91c7
+		summarizeBy: none
+		sourceColumn: ApplicationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PositionApplied
+		dataType: string
+		lineageTag: 731d21ef-83ef-40f8-a650-b6c6adeb1cce
+		summarizeBy: none
+		sourceColumn: PositionApplied
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 67dbb48c-4efe-476e-a5be-1452514fb12b
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: d751a690-f420-4c08-ad00-11a2da05dedd
+		summarizeBy: sum
+		sourceColumn: JobLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecruitmentSource
+		dataType: string
+		lineageTag: 9786a0c2-a470-4422-b0a9-5ede9071becd
+		summarizeBy: none
+		sourceColumn: RecruitmentSource
+
+		annotation SummarizationSetBy = Automatic
+
+	column CandidateGender
+		dataType: string
+		lineageTag: 98d74c66-4748-4c7a-a339-de7a6c6fbc4b
+		summarizeBy: none
+		sourceColumn: CandidateGender
+
+		annotation SummarizationSetBy = Automatic
+
+	column CandidateAge
+		dataType: int64
+		formatString: 0
+		lineageTag: 222de954-ebcd-49d3-8b50-aea96aaeb17a
+		summarizeBy: sum
+		sourceColumn: CandidateAge
+
+		annotation SummarizationSetBy = Automatic
+
+	column ApplicationDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b6c5334b-b5be-4641-9e45-14cb0fb8815c
+		summarizeBy: none
+		sourceColumn: ApplicationDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ScreeningDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 080c9fb0-7546-4fe5-915d-41c57b44778f
+		summarizeBy: none
+		sourceColumn: ScreeningDate
+
+		variation Variation
+			isDefault
+			relationship: 02304f80-1a7d-4734-857e-3b709042c2ca
+			defaultHierarchy: LocalDateTable_14fc396a-bb92-4a31-ae38-6c6928bc97d8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column InterviewDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 728fc333-5764-44c5-8ad0-ded4d9f4e160
+		summarizeBy: none
+		sourceColumn: InterviewDate
+
+		variation Variation
+			isDefault
+			relationship: 9a090d83-92c1-43b4-a5c1-ef38e30bf8ba
+			defaultHierarchy: LocalDateTable_2beeb7df-87c8-44be-9caa-1c10ef7341af.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OfferDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: aa8c4f8c-6773-4cbf-a5e5-c9f09ed8baa3
+		summarizeBy: none
+		sourceColumn: OfferDate
+
+		variation Variation
+			isDefault
+			relationship: 5c47c5bc-1238-4e25-9f46-13f0ce6bf823
+			defaultHierarchy: LocalDateTable_72605ac8-79b3-4fbf-a1a8-8c9579dce3b3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column JoinDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a47a20e-987e-4c7e-a942-7569de268686
+		summarizeBy: none
+		sourceColumn: JoinDate
+
+		variation Variation
+			isDefault
+			relationship: 61e55e94-2fea-4496-9400-e9ab5d1e7ee8
+			defaultHierarchy: LocalDateTable_36757381-2b91-486d-8aed-58989d63f748.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FurthestStage
+		dataType: string
+		lineageTag: 48e1baff-1651-4c1c-b243-c9e981a0c51a
+		summarizeBy: none
+		sourceColumn: FurthestStage
+
+		annotation SummarizationSetBy = Automatic
+
+	column ApplicationStatus
+		dataType: string
+		lineageTag: ea0eb1dc-9863-4e3a-b72e-c7dcbb246743
+		summarizeBy: none
+		sourceColumn: ApplicationStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column TimeToHireDays
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d54806f-82f7-4cd2-803c-3db01ef98e78
+		summarizeBy: sum
+		sourceColumn: TimeToHireDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostPerHire
+		dataType: int64
+		formatString: 0
+		lineageTag: f88a773a-d6a2-48d1-a15d-142cae47983d
+		summarizeBy: sum
+		sourceColumn: CostPerHire
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecruiterID
+		dataType: string
+		lineageTag: c63aeaad-6e9e-431c-a36d-f251c3da2eb2
+		summarizeBy: none
+		sourceColumn: RecruiterID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Recruitment = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    Recruitment_Sheet = Source{[Item="Recruitment",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Recruitment_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ApplicationID", type text}, {"PositionApplied", type text}, {"Department", type text}, {"JobLevel", Int64.Type}, {"RecruitmentSource", type text}, {"CandidateGender", type text}, {"CandidateAge", Int64.Type}, {"ApplicationDate", type date}, {"ScreeningDate", type date}, {"InterviewDate", type date}, {"OfferDate", type date}, {"JoinDate", type date}, {"FurthestStage", type text}, {"ApplicationStatus", type text}, {"TimeToHireDays", Int64.Type}, {"CostPerHire", Int64.Type}, {"RecruiterID", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

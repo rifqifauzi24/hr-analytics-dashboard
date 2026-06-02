@@ -1,0 +1,138 @@
+table Training
+	lineageTag: 0cdbc7ea-9ef0-43e8-bda7-2546937959a9
+
+	column TrainingRecordID
+		dataType: string
+		lineageTag: 436790be-b493-4ddd-bac8-1b2776cf5f86
+		summarizeBy: none
+		sourceColumn: TrainingRecordID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeID
+		dataType: string
+		lineageTag: caeb821f-8d56-45b8-9770-648535649b0a
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 1a03a03b-7392-4e1e-88ff-057ef94c6018
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a758c96-681b-4c4f-b187-6f731bf83048
+		summarizeBy: sum
+		sourceColumn: JobLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrainingProgram
+		dataType: string
+		lineageTag: ba093bd4-6c42-402e-86bd-564edd963f27
+		summarizeBy: none
+		sourceColumn: TrainingProgram
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrainingCategory
+		dataType: string
+		lineageTag: 4ac523c2-8cc3-4805-9ca8-ee0a135f5fd8
+		summarizeBy: none
+		sourceColumn: TrainingCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Provider
+		dataType: string
+		lineageTag: 1bf41551-05ff-4d13-b628-87495737f1d0
+		summarizeBy: none
+		sourceColumn: Provider
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeliveryMode
+		dataType: string
+		lineageTag: c5ba2ea5-4929-4415-87d3-9095cf1db366
+		summarizeBy: none
+		sourceColumn: DeliveryMode
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrainingDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 331de286-a8b0-4003-8211-0c08d6604669
+		summarizeBy: none
+		sourceColumn: TrainingDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DurationHours
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e5aaf70-65f3-4e09-8cd1-e5192e69c63d
+		summarizeBy: sum
+		sourceColumn: DurationHours
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostPerParticipant
+		dataType: int64
+		formatString: 0
+		lineageTag: 0da77ddb-f7b4-45a0-bb1f-3b7d0ad5dcfd
+		summarizeBy: sum
+		sourceColumn: CostPerParticipant
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompletionStatus
+		dataType: string
+		lineageTag: e2657673-5f42-4781-afb6-a419e9975f23
+		summarizeBy: none
+		sourceColumn: CompletionStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column AssessmentScore
+		dataType: double
+		lineageTag: 4907dbb2-5372-4867-94c1-f049c30d6cf3
+		summarizeBy: sum
+		sourceColumn: AssessmentScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CertificationObtained
+		dataType: string
+		lineageTag: 4c742a91-d6bb-43f5-89ef-365297ebb1c3
+		summarizeBy: none
+		sourceColumn: CertificationObtained
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Training = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    Training_Sheet = Source{[Item="Training",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Training_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TrainingRecordID", type text}, {"EmployeeID", type text}, {"Department", type text}, {"JobLevel", Int64.Type}, {"TrainingProgram", type text}, {"TrainingCategory", type text}, {"Provider", type text}, {"DeliveryMode", type text}, {"TrainingDate", type date}, {"DurationHours", Int64.Type}, {"CostPerParticipant", Int64.Type}, {"CompletionStatus", type text}, {"AssessmentScore", type number}, {"CertificationObtained", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

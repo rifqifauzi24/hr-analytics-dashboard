@@ -1,0 +1,137 @@
+table EngagementSurvey
+	lineageTag: 158881d5-3e7b-4e79-b7fc-4e93bed9a58b
+
+	column SurveyID
+		dataType: string
+		lineageTag: 2dfb9dad-5636-46e2-a71f-54590c193306
+		summarizeBy: none
+		sourceColumn: SurveyID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 17088856-8d87-41d9-87cb-5f1b7f01613f
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: a99646e3-7608-4dd5-b07f-75815e2a0f49
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: c0e2a4e7-c695-43d8-b9f0-da3c6559ef2d
+		summarizeBy: sum
+		sourceColumn: JobLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d314f75-2b4d-4872-98ee-bf8b065ae643
+		summarizeBy: sum
+		sourceColumn: SurveyYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column EngagementScore
+		dataType: double
+		lineageTag: bd28ab64-7c12-4b74-bea1-6eda19d4dc95
+		summarizeBy: sum
+		sourceColumn: EngagementScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column JobSatisfactionScore
+		dataType: double
+		lineageTag: dd47f73a-6542-4b4e-96c3-0364c134a953
+		summarizeBy: sum
+		sourceColumn: JobSatisfactionScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column WorkLifeBalanceScore
+		dataType: double
+		lineageTag: 3ee7aec0-150e-438c-9a2e-eef5c8c94639
+		summarizeBy: sum
+		sourceColumn: WorkLifeBalanceScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ManagerSupportScore
+		dataType: double
+		lineageTag: b258a164-0033-488f-b2c1-9f76c9e4789d
+		summarizeBy: sum
+		sourceColumn: ManagerSupportScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CareerGrowthScore
+		dataType: double
+		lineageTag: d48f66f9-d0dc-44f2-be08-d7836d4e9485
+		summarizeBy: sum
+		sourceColumn: CareerGrowthScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CompensationSatisfactionScore
+		dataType: double
+		lineageTag: 3b4199b5-4d23-4020-b49e-e7444ac8cd90
+		summarizeBy: sum
+		sourceColumn: CompensationSatisfactionScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecommendCompany_eNPS
+		dataType: int64
+		formatString: 0
+		lineageTag: 2eba967d-a1ae-405c-9adf-a619abb12170
+		summarizeBy: sum
+		sourceColumn: RecommendCompany_eNPS
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntentToStay12mo
+		dataType: string
+		lineageTag: d88ecd6a-d42c-46e7-bd2d-773f484d6f0e
+		summarizeBy: none
+		sourceColumn: IntentToStay12mo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EngagementSurvey = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    EngagementSurvey_Sheet = Source{[Item="EngagementSurvey",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(EngagementSurvey_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SurveyID", type text}, {"EmployeeID", type text}, {"Department", type text}, {"JobLevel", Int64.Type}, {"SurveyYear", Int64.Type}, {"EngagementScore", type number}, {"JobSatisfactionScore", type number}, {"WorkLifeBalanceScore", type number}, {"ManagerSupportScore", type number}, {"CareerGrowthScore", type number}, {"CompensationSatisfactionScore", type number}, {"RecommendCompany_eNPS", Int64.Type}, {"IntentToStay12mo", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

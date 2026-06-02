@@ -1,0 +1,160 @@
+table Attendance
+	lineageTag: f091b8be-8bfc-4ecc-bb31-b28c5624578d
+
+	column AttendanceID
+		dataType: string
+		lineageTag: 499d3ae6-9a69-435c-be42-3702da12b99d
+		summarizeBy: none
+		sourceColumn: AttendanceID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeID
+		dataType: string
+		lineageTag: c5d0f2db-d31f-4877-ae82-4987cb0450ab
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 6e1fc0d9-33a9-448e-b130-0239cec0fafc
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 432b67ef-e318-4146-acd2-32be1f292b9d
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Period
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0f7209f7-ee73-4011-8357-d763cf75e78e
+		summarizeBy: none
+		sourceColumn: Period
+
+		variation Variation
+			isDefault
+			relationship: 3253232b-0cf6-4eb1-8357-79f7584edc5f
+			defaultHierarchy: LocalDateTable_cf5f63c3-b6c6-4a27-b1f7-faa367b05cd5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e511a7e9-23a6-415a-a1b5-8737351a0d33
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WorkingDays
+		dataType: int64
+		formatString: 0
+		lineageTag: be7665fc-bedd-49cd-8961-e5148848c972
+		summarizeBy: sum
+		sourceColumn: WorkingDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysPresent
+		dataType: int64
+		formatString: 0
+		lineageTag: 491d6886-10e4-403c-944d-8ff6270549b5
+		summarizeBy: sum
+		sourceColumn: DaysPresent
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysAbsent
+		dataType: int64
+		formatString: 0
+		lineageTag: e64d2dde-b300-430d-a197-bef8d5aaafef
+		summarizeBy: sum
+		sourceColumn: DaysAbsent
+
+		annotation SummarizationSetBy = Automatic
+
+	column LateCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 43d11872-0f19-4b20-b0fd-3c830eaa0513
+		summarizeBy: sum
+		sourceColumn: LateCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnnualLeaveDays
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d0c3404-a74c-43e7-abbc-c1e216560423
+		summarizeBy: sum
+		sourceColumn: AnnualLeaveDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column SickLeaveDays
+		dataType: int64
+		formatString: 0
+		lineageTag: ef366ac4-ca8b-477b-8ac5-55794a9f809a
+		summarizeBy: sum
+		sourceColumn: SickLeaveDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnpaidLeaveDays
+		dataType: int64
+		formatString: 0
+		lineageTag: 93f8f176-0246-43a3-8b70-488af664c4b9
+		summarizeBy: sum
+		sourceColumn: UnpaidLeaveDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column OvertimeHours
+		dataType: double
+		lineageTag: fe071858-d508-408d-9d18-58ad6b33fd2e
+		summarizeBy: sum
+		sourceColumn: OvertimeHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AttendanceRatePct
+		dataType: double
+		lineageTag: 42d17570-7e35-4570-bcb2-2772be5de0c8
+		summarizeBy: sum
+		sourceColumn: AttendanceRatePct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Attendance = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    Attendance_Sheet = Source{[Item="Attendance",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Attendance_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"AttendanceID", type text}, {"EmployeeID", type text}, {"Department", type text}, {"Location", type text}, {"Period", type date}, {"Month", type date}, {"WorkingDays", Int64.Type}, {"DaysPresent", Int64.Type}, {"DaysAbsent", Int64.Type}, {"LateCount", Int64.Type}, {"AnnualLeaveDays", Int64.Type}, {"SickLeaveDays", Int64.Type}, {"UnpaidLeaveDays", Int64.Type}, {"OvertimeHours", type number}, {"AttendanceRatePct", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,82 @@
+relationship 3253232b-0cf6-4eb1-8357-79f7584edc5f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Attendance.Period
+	toColumn: LocalDateTable_cf5f63c3-b6c6-4a27-b1f7-faa367b05cd5.Date
+
+relationship 23b65b71-ed5c-4651-a95f-4d4c785b83f5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Compensation.LastSalaryReviewDate
+	toColumn: LocalDateTable_fa5afbc0-2393-4e12-8491-425a74ed2782.Date
+
+relationship 8609f9cd-1196-460f-aee6-77c7835fb1ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employees.DateOfBirth
+	toColumn: LocalDateTable_f16bc380-eb05-42bb-8899-bf6fd780c81a.Date
+
+relationship acc9832d-9554-4779-b32d-137ecd4ff0be
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employees.HireDate
+	toColumn: LocalDateTable_3fa6f8ed-3fe5-4573-864e-e98705679c20.Date
+
+relationship 07bb13db-7b1f-46b7-9139-a0647d542685
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employees.TerminationDate
+	toColumn: LocalDateTable_9137b538-494c-47d8-a8cb-441c7ba787f1.Date
+
+relationship 6b4cd17d-14a1-40cc-927e-c45b19a5dc36
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employees.LastWorkingDate
+	toColumn: LocalDateTable_04267fed-817f-4c0a-a996-a74998a85f6c.Date
+
+relationship 02304f80-1a7d-4734-857e-3b709042c2ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Recruitment.ScreeningDate
+	toColumn: LocalDateTable_14fc396a-bb92-4a31-ae38-6c6928bc97d8.Date
+
+relationship 9a090d83-92c1-43b4-a5c1-ef38e30bf8ba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Recruitment.InterviewDate
+	toColumn: LocalDateTable_2beeb7df-87c8-44be-9caa-1c10ef7341af.Date
+
+relationship 5c47c5bc-1238-4e25-9f46-13f0ce6bf823
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Recruitment.OfferDate
+	toColumn: LocalDateTable_72605ac8-79b3-4fbf-a1a8-8c9579dce3b3.Date
+
+relationship 61e55e94-2fea-4496-9400-e9ab5d1e7ee8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Recruitment.JoinDate
+	toColumn: LocalDateTable_36757381-2b91-486d-8aed-58989d63f748.Date
+
+relationship bd21e6c8-8910-589e-a836-95e48d574b30
+	fromColumn: Compensation.EmployeeID
+	toColumn: Employees.EmployeeID
+
+relationship b054716b-22f2-08a6-4bfa-d2842c35f297
+	fromColumn: Performance.EmployeeID
+	toColumn: Employees.EmployeeID
+
+relationship 1013203c-f22c-a76b-c3fe-c539d972b57a
+	fromColumn: Attendance.EmployeeID
+	toColumn: Employees.EmployeeID
+
+relationship fb008a98-4c8f-6efa-0a8f-53e65f0805d2
+	fromColumn: Training.EmployeeID
+	toColumn: Employees.EmployeeID
+
+relationship 596f72f4-2be3-75ac-cb65-c740af971984
+	fromColumn: EngagementSurvey.EmployeeID
+	toColumn: Employees.EmployeeID
+
+relationship a8e0cceb-756c-375c-577d-fc2bf5d6ef00
+	fromColumn: Recruitment.ApplicationDate
+	toColumn: DateTable.Date
+
+relationship aceb811f-8b32-3e08-9754-e1a51edd2241
+	fromColumn: Training.TrainingDate
+	toColumn: DateTable.Date
+
+relationship afacd8b5-209c-0b15-6f49-8665d325ee3f
+	fromColumn: Attendance.Month
+	toColumn: DateTable.Date
+

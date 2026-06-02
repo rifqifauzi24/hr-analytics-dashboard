@@ -1,0 +1,148 @@
+table Performance
+	lineageTag: 7515e69c-1484-4381-b581-969cbe6f9287
+
+	column PerfRecordID
+		dataType: string
+		lineageTag: fc0ed4ee-d95a-4174-8954-0581c5070015
+		summarizeBy: none
+		sourceColumn: PerfRecordID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeID
+		dataType: string
+		lineageTag: a851d448-afdc-496f-bb2f-45ebf57ea9fe
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: f65717ff-a1af-41a7-b168-a3688056103d
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: bc30fe55-0b3a-47b9-83e8-bbf7ec321cc1
+		summarizeBy: sum
+		sourceColumn: JobLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewYear
+		dataType: int64
+		formatString: 0
+		lineageTag: dc823e68-d0bf-4f0b-a8b5-b3c5a6502efe
+		summarizeBy: sum
+		sourceColumn: ReviewYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column PerformanceScore
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e45955b-de7f-4110-848b-046bb4cfa17e
+		summarizeBy: sum
+		sourceColumn: PerformanceScore
+
+		annotation SummarizationSetBy = Automatic
+
+	column PerformanceRating
+		dataType: string
+		lineageTag: 339c1541-23d7-4463-8ba7-7f53017cca75
+		summarizeBy: none
+		sourceColumn: PerformanceRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column PotentialRating
+		dataType: int64
+		formatString: 0
+		lineageTag: 50d2997a-ef8d-40c3-8393-29db8415a126
+		summarizeBy: sum
+		sourceColumn: PotentialRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column NineBoxCategory
+		dataType: string
+		lineageTag: 9a919fd9-4c2f-4fc0-8111-168bb0dd8df3
+		summarizeBy: none
+		sourceColumn: NineBoxCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column GoalAchievementPercent
+		dataType: int64
+		formatString: 0
+		lineageTag: dd0b6165-4d2a-45d3-ad63-e11eb96073d8
+		summarizeBy: sum
+		sourceColumn: GoalAchievementPercent
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompetencyScore
+		dataType: double
+		lineageTag: f86a1c79-756c-499e-9504-ecff444669cf
+		summarizeBy: sum
+		sourceColumn: CompetencyScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PromotionRecommended
+		dataType: string
+		lineageTag: f81c8b67-91bc-46a8-91f0-17d22787ad1a
+		summarizeBy: none
+		sourceColumn: PromotionRecommended
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrainingNeedsIdentified
+		dataType: string
+		lineageTag: bea1d98f-55f4-4af0-b603-c544c9b2d144
+		summarizeBy: none
+		sourceColumn: TrainingNeedsIdentified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Perf Band' =
+			
+			SWITCH ( TRUE (),
+			    Performance[PerformanceScore] <= 2, "Low (1-2)",
+			    Performance[PerformanceScore] = 3, "Medium (3)",
+			    "High (4-5)" )
+		lineageTag: 0965d734-6fee-4a95-a41c-a6cbb018ac7a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Potential Band' =
+			
+			SWITCH ( Performance[PotentialRating], 1, "P1 Low", 2, "P2 Medium", 3, "P3 High" )
+		lineageTag: c32dcd21-c49d-433b-8cda-5912d8a07d6e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Performance = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\RIFQI 2026\PROJECT2 2026\HR Dashboard Analytics - Power BI\HR_Analytics_Dataset.xlsx"), null, true),
+				    Performance_Sheet = Source{[Item="Performance",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Performance_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PerfRecordID", type text}, {"EmployeeID", type text}, {"Department", type text}, {"JobLevel", Int64.Type}, {"ReviewYear", Int64.Type}, {"PerformanceScore", Int64.Type}, {"PerformanceRating", type text}, {"PotentialRating", Int64.Type}, {"NineBoxCategory", type text}, {"GoalAchievementPercent", Int64.Type}, {"CompetencyScore", type number}, {"PromotionRecommended", type text}, {"TrainingNeedsIdentified", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
