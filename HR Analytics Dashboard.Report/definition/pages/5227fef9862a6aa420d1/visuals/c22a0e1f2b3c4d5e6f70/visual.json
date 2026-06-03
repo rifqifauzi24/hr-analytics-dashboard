@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c22a0e1f2b3c4d5e6f70",
+  "position": {
+    "x": 574,
+    "y": 150,
+    "z": 16000,
+    "height": 275,
+    "width": 338,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "Employees" } },
+                  "Property": "AgeBand"
+                }
+              },
+              "queryRef": "Employees.AgeBand",
+              "nativeQueryRef": "AgeBand",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "_Measures" } },
+                  "Property": "Active Headcount"
+                }
+              },
+              "queryRef": "_Measures.Active Headcount",
+              "nativeQueryRef": "Active Headcount"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        { "properties": { "defaultColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#2E9E78'" } } } } } } }
+      ],
+      "labels": [
+        { "properties": { "show": { "expr": { "Literal": { "Value": "true" } } } } }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'Age band distribution'" } } } } }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
