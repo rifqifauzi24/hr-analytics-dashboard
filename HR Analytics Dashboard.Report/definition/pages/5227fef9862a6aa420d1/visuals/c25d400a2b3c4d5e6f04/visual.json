@@ -4,10 +4,10 @@
   "position": {
     "x": 574,
     "y": 437,
-    "z": 6004,
+    "z": 10000,
     "height": 275,
     "width": 338,
-    "tabOrder": 6004
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "columnChart",
@@ -183,6 +183,19 @@
               "expr": {
                 "Literal": {
                   "Value": "'Top'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "seriesOrderReversed": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

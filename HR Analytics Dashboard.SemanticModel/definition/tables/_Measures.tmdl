@@ -13,6 +13,8 @@ table _Measures
 
 		changedProperty = IsHidden
 
+		annotation PBI_FormatHint = {"isDecimal":true}
+
 	measure Separations = CALCULATE ( [Total Employees Ever], Employees[EmploymentStatus] <> "Active" )
 		formatString: 0
 		lineageTag: c73cba63-a90b-40cc-b8c0-aaf43eda230e
@@ -47,9 +49,8 @@ table _Measures
 			    CALCULATE ( [Active Headcount], Employees[Gender] = "Female" ),
 			    [Active Headcount]
 			)
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 205df50f-348e-491e-a31a-0cda43a0bef0
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Headcount (as of)' =
 			
@@ -102,9 +103,8 @@ table _Measures
 	measure 'Attrition Rate' =
 			
 			DIVIDE ( [Terminations (period)], [Avg Headcount (period)] )
+		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: c66bc144-daa1-429d-b948-42404fc09714
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Annual Payroll' =
 			
@@ -277,7 +277,7 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'eNPS 2025' = CALCULATE ( [eNPS], EngagementSurvey[SurveyYear] = "2025" )
+	measure 'eNPS 2025' = CALCULATE ( [eNPS], EngagementSurvey[SurveyYear] = 2025 )
 		formatString: 0
 		lineageTag: 12aed3b5-fecc-443e-87eb-2112dafabba2
 
@@ -302,6 +302,18 @@ table _Measures
 			CALCULATE ( SUM ( Compensation[AnnualBonus] ), Employees[EmploymentStatus] = "Active" )
 		formatString: 0
 		lineageTag: 87c6b401-7aa1-43d7-af40-e4634bb1888b
+
+	measure '% Bachelor+' =
+			
+			DIVIDE (
+			    CALCULATE (
+			        [Active Headcount],
+			        Employees[Education] IN { "Bachelor (S1)", "Master (S2)", "Doctorate (S3)" }
+			    ),
+			    [Active Headcount]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c896bf0b-0686-486d-9199-8d7127cf6900
 
 	partition _Measures = m
 		mode: import

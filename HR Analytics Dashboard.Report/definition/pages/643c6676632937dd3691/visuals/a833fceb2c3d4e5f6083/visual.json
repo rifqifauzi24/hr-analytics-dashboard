@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "a833fceb2c3d4e5f6083",
+  "position": {
+    "x": 222,
+    "y": 341,
+    "z": 8803,
+    "height": 179,
+    "width": 515,
+    "tabOrder": 8803
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "EngagementScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.EngagementScore)",
+              "nativeQueryRef": "Engagement"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "JobSatisfactionScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.JobSatisfactionScore)",
+              "nativeQueryRef": "Satisfaction"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "WorkLifeBalanceScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.WorkLifeBalanceScore)",
+              "nativeQueryRef": "Work-Life"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "ManagerSupportScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.ManagerSupportScore)",
+              "nativeQueryRef": "Mgr Support"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "CareerGrowthScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.CareerGrowthScore)",
+              "nativeQueryRef": "Career Growth"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EngagementSurvey"
+                        }
+                      },
+                      "Property": "CompensationSatisfactionScore"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(EngagementSurvey.CompensationSatisfactionScore)",
+              "nativeQueryRef": "Pay Satisf."
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E75B6'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Survey dimensions profile'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

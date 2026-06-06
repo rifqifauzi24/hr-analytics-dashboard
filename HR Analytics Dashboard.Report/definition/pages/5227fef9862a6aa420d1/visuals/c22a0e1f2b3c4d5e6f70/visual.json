@@ -4,10 +4,10 @@
   "position": {
     "x": 574,
     "y": 150,
-    "z": 16000,
+    "z": 18000,
     "height": 275,
     "width": 338,
-    "tabOrder": 16000
+    "tabOrder": 18000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -18,7 +18,11 @@
             {
               "field": {
                 "Column": {
-                  "Expression": { "SourceRef": { "Entity": "Employees" } },
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Employees"
+                    }
+                  },
                   "Property": "AgeBand"
                 }
               },
@@ -33,7 +37,11 @@
             {
               "field": {
                 "Measure": {
-                  "Expression": { "SourceRef": { "Entity": "_Measures" } },
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
                   "Property": "Active Headcount"
                 }
               },
@@ -46,15 +54,75 @@
     },
     "objects": {
       "dataPoint": [
-        { "properties": { "defaultColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#2E9E78'" } } } } } } }
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E9E78'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ],
       "labels": [
-        { "properties": { "show": { "expr": { "Literal": { "Value": "true" } } } } }
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
       "title": [
-        { "properties": { "text": { "expr": { "Literal": { "Value": "'Age band distribution'" } } } } }
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Age band distribution'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
